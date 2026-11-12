@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudentHub | University Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <div class="nav-brand">
+                <h2>StudentHub</h2>
+                <span>STUDENT INFORMATION SYSTEM</span>
+            </div>
+
+            <nav class="nav-links">
+                <a href="#" class="active">Overview</a>
+                <a href="#courses">Courses</a>
+                <a href="#registration">Registration</a>
+                <a href="#directory">Student Records</a>
+            </nav>
+        </div>
+
+        <div class="system-status">
+            <span class="status-dot"></span>
+            System Online
+        </div>
+    </aside>
+
+    <main class="workspace">
+
+        <section class="page-heading">
+            <div>
+                <p class="eyebrow">ADMINISTRATION / OVERVIEW</p>
+                <h1>Student Management</h1>
+                <p class="page-description">
+                    Manage courses, student registrations, and academic records.
+                </p>
+            </div>
+
+            <div class="academic-label">
+                <span>PORTAL STATUS</span>
+                <strong>Active</strong>
+            </div>
+        </section>
+
+        <section class="overview-grid">
+            <div class="overview-card primary-stat">
+                <div class="stat-heading">
+                    <span>TOTAL REGISTERED STUDENTS</span>
+                    <span class="stat-marker"></span>
+                </div>
+                <h2 id="studentCount">0</h2>
+                <p>Students currently in the system</p>
+            </div>
+
+            <div class="overview-card">
+                <div class="stat-heading">
+                    <span>ACTIVE COURSES</span>
+                </div>
+                <h2 id="courseCount">0</h2>
+                <p>Available programs for enrolment</p>
+            </div>
+
+            <div class="overview-card">
+                <div class="stat-heading">
+                    <span>API STATUS</span>
+                    <span class="status-dot"></span>
+                </div>
+                <h2 id="apiStatusText" class="connected">Connected</h2>
+                <p>Backend service status</p>
+            </div>
+        </section>
+
+        <!-- SECTION 01: COURSES TABLE & ROSTER -->
+        <section class="directory-section" id="courses">
+            <div class="section-header">
+                <div>
+                    <p class="eyebrow">CURRICULUM</p>
+                    <h2>Course Management</h2>
+                    <p>Register courses and view enrolled student rosters.</p>
+                </div>
+                <span class="section-number">01</span>
+            </div>
+
+            <form id="courseForm" class="spaced-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="courseCode">COURSE CODE</label>
+                        <input type="text" id="courseCode" placeholder="e.g. CSC 101" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="courseTitle">COURSE TITLE</label>
+                        <input type="text" id="courseTitle" placeholder="e.g. Computer Science" required>
+                    </div>
+                    <div class="form-action">
+                        <button type="submit">Add Course <span>+</span></button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="table-container">
+                <table class="student-table">
+                    <thead>
+                        <tr>
+                            <th>CODE</th>
+                            <th>COURSE TITLE</th>
+                            <th>ENROLLED</th>
+                            <th>ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="courseList">
+                        <tr>
+                            <td colspan="4">Loading courses...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Short Course Roster Box -->
+            <div id="courseRosterBox" class="roster-box">
+                <div class="roster-header">
+                    <h3 id="rosterTitle">Enrolled Students</h3>
+                    <button type="button" id="closeRosterBtn" class="outline-button btn-sm">Close</button>
+                </div>
+                <table class="student-table">
+                    <thead>
+                        <tr>
+                            <th>STUDENT ID</th>
+                            <th>STUDENT NAME</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rosterList"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECTION 02: REGISTER STUDENT -->
+        <section class="registration-section" id="registration">
+            <div class="section-header">
+                <div>
+                    <p class="eyebrow">STUDENT ENROLMENT</p>
+                    <h2>Register a Student</h2>
+                    <p>Add a new student record to a registered course.</p>
+                </div>
+                <span class="section-number">02</span>
+            </div>
+
+            <form id="studentForm">
+                <input type="hidden" id="studentId">
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">STUDENT NAME</label>
+                        <input type="text" id="name" placeholder="Enter full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="course">COURSE OF STUDY</label>
+                        <select id="course" required>
+                            <option value="">-- Select a registered course --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-action">
+                        <button type="submit" id="submitButton">
+                            Register Student <span>→</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- SECTION 03: ALL STUDENT RECORDS -->
+        <section class="directory-section" id="directory">
+            <div class="section-header directory-heading">
+                <div>
+                    <p class="eyebrow">ACADEMIC DATABASE</p>
+                    <h2>All Student Records</h2>
+                    <p>View, search, update and manage all registered students.</p>
+                </div>
+                <span class="section-number">03</span>
+            </div>
+
+            <div class="directory-toolbar">
+                <div class="search-wrapper">
+                    <span class="search-icon">⌕</span>
+                    <input type="text" id="searchName" placeholder="Search students by name...">
+                </div>
+
+                <div class="toolbar-actions">
+                    <button type="button" id="searchBtn">Search Records</button>
+                    <button type="button" id="showAllBtn" class="outline-button">Show All</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="student-table">
+                    <thead>
+                        <tr>
+                            <th>STUDENT ID</th>
+                            <th>STUDENT NAME</th>
+                            <th>COURSE OF STUDY</th>
+                            <th>ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentList">
+                        <tr>
+                            <td colspan="4">Loading student records...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
